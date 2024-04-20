@@ -2,26 +2,31 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
-}
-
 body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  font-family: var(--font-roboto);
+  overflow-y: scroll;
+  scrollbar-gutter: stable both-edges;
+  @apply bg-semiLight dark:bg-dark
 }
+
+.boxWidth{
+  @apply w-[1440px]
+}
+.flexCenter{
+  @apply flex justify-center items-center
+}
+.flexBetween{
+  @apply flex justify-between items-center
+}
+.flexColumn{
+  @apply flex flex-col justify-center items-center
+}
+
+.grid-layout {
+  display: grid;
+}
+
+.text-area[contenteditable]:empty::before {
+  content: attr(data-content);
+}
+
