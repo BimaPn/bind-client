@@ -26,12 +26,12 @@ const Navbar = async ({className}:{className?:string}) => {
             {/* props */}
             <div className='flex items-center justify-end gap-4 ss:gap-5'>
                 <div className='ss:flex items-center gap-2 hidden'>
-                    <Link href={`message`} className='w-9 aspect-square flex items-center justify-center bg-semiLight dark:bg-d_netral rounded-full'>
+                    <Link href={`/chat`} className='w-9 aspect-square flex items-center justify-center bg-semiLight dark:bg-d_netral rounded-full'>
                         < ChatIcon active width={21} className='cursor-pointer' />
                     </Link>
-                    <div className='w-9 aspect-square flexCenter bg-semiLight dark:bg-d_netral rounded-full'>
+                    <Link href={`/notifications`} className='w-9 aspect-square flexCenter bg-semiLight dark:bg-d_netral rounded-full'>
                         < NotificationIcon active width={18} className='cursor-pointer'/>
-                    </div>
+                    </Link>
                 </div>
                 <div className='hidden sm:block'>
                     < ProfileDropdown

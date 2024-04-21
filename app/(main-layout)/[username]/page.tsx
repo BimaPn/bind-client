@@ -37,8 +37,8 @@ const User = async ({params}:Props) => {
   return (
     <div className="flex flex-col">
       <UserProfileContext userData={data.user}>
-        < PageHeader title={params.username} className="ss:hidden block" />
-        <div className='mt-[52px] ss:m-0'>
+        < PageHeader title={params.username} showWideScreen={false} className="ss:hidden block" />
+        <div>
           < UserHeader authUsername={session?.user.username as string}  />
           < UserBody username={params.username} />
         </div>

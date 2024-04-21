@@ -1,7 +1,8 @@
 export type MainLayoutProps = {
-    children : React.ReactNode,
-    navbarMobile ?: boolean,
+    children : React.ReactNode
+    navbarMobile ?: boolean
     className ?: string
+    disabledDiscover?: boolean
 }
 export type BoxSectionProps = {
     children : React.ReactNode,
