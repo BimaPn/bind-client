@@ -1,8 +1,7 @@
-import MainLayout from "@/layouts/MainLayout"
 import { Metadata } from 'next';
 import UserProfileContext from "@/components/providers/UserProfileContext";
 import { getServerSession } from "next-auth";
-import { authOptions } from "../api/auth/[...nextauth]/route";
+import { authOptions } from "../../api/auth/[...nextauth]/route";
 import UserHeader from "@/components/users/UserHeader";
 import UserBody from "@/components/users/UserBody";
 import PageHeader from "@/components/ui/PageHeader";
@@ -36,7 +35,7 @@ const User = async ({params}:Props) => {
   const session = await getServerSession(authOptions)
   const data = await getUserData(params.username)
   return (
-    <MainLayout className="flex flex-col">
+    <div className="flex flex-col">
       <UserProfileContext userData={data.user}>
         < PageHeader title={params.username} className="ss:hidden block" />
         <div className='mt-[52px] ss:m-0'>
@@ -44,7 +43,7 @@ const User = async ({params}:Props) => {
           < UserBody username={params.username} />
         </div>
       </UserProfileContext>
-    </MainLayout>
+    </div>
   )
 }
 

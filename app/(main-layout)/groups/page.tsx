@@ -4,7 +4,7 @@ import { FiPlus } from "react-icons/fi"
 import SearchGroup from "@/components/groups/SearchGroup"
 import GroupsDiscover from "@/components/groups/GroupsDiscover"
 import { getServerSession } from "next-auth"
-import { authOptions } from "../api/auth/[...nextauth]/route"
+import { authOptions } from "../../api/auth/[...nextauth]/route"
 import GroupJoined from "@/components/groups/GroupJoined"
 import CreateGroup from "@/components/groups/CreateGroup"
 

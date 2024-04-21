@@ -4,13 +4,12 @@ import MainContent from '@/components/home/MainContent'
 
 
 const page = () => {
-
   return (
     <MainLayout navbarMobile={false}>
       <div className='hidden ss:block'>
-        < CreatePost />
+        <CreatePost />
       </div>
-      < MainContent/>
+      <MainContent/>
     </MainLayout>
   )
 }

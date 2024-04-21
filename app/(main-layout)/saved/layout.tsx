@@ -1,19 +1,18 @@
 import type { Metadata } from 'next'
-import { useParams } from 'next/navigation'
+
 
 export const metadata: Metadata = {
-  title: 'username',
-  description: 'User Login',
+  title: 'saved',
 }
 
-export default function LoginLayout({
+export default function SavedLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
   return (
     <>
-        {children}
+      {children}
     </>
   )
 }
