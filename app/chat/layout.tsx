@@ -15,7 +15,7 @@ export default function RootLayout({
   return (
     <MainLayout disabledDiscover>
       <section className="w-full flexCenter">
-        <div className='w-full sm:w-[80%] md:w-full flex gap-6'>
+        <div className='h-[93.4vh] ss:h-[83vh] sm:h-[90vh] md:h-[60vh] w-full sm:w-[80%] md:w-full flex gap-6'>
           <ChatMenu />
           {children}
         </div>
