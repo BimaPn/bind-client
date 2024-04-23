@@ -1,3 +1,10 @@
+type Message = {
+  id: string 
+  message: string
+  created_at: string
+  isCurrentAuth: boolean
+}
+
 type ChatItem = {
   message: string
   created_at: string

@@ -39,7 +39,7 @@ const ChatMenu = () => {
 const ChatItem = ({chat}:{chat:ChatItem}) => {
   return (
     <Link href={`/chat/${chat.user.username}`} className="w-full flexBetween gap-2 p-2 cursor-pointer hover:bg-semiLight dark:hover:bg-d_netral rounded-lg">
-      <RoundedImage src="/people/person1.jpg" alt="person" className="min-w-[42px]" />
+      <RoundedImage src={chat.user.profile_picture} alt="person" className="min-w-[42px]" />
       <div className="w-[95%] flex flex-col items-center overflow-hidden">
         <div className="w-full flexBetween">
           <span>{chat.user.name}</span>
