@@ -1,29 +1,38 @@
 'use client'
 
 import { useEffect, useState } from "react"
-import EchoConfig from "../api/pusher"
+// import EchoConfig from "../api/pusher"
 import ApiClient from "../api/axios/ApiClient"
-import Echo from "laravel-echo"
 
 const page = () => {
   const [message, setMessage] = useState<string>("")
   
+  // useEffect(() => {
+  //   let socket;
+  //   const initial = async () => {
+  //     // setEcho(await EchoConfig())
+  //     socket = await EchoConfig()
+  //     if(socket){
+  //       window.Echo = socket 
+  //       window.Echo.private("testing")
+  //       .listen('FriendRequest', (e:any) => {
+  //         console.log("berhasil")
+  //         console.log(e.message)
+  //         setMessage(e.message)
+  //       })
+  //     }
+  //   }
+  //   initial()
+  // },[])
+
   useEffect(() => {
-    let socket;
-    const initial = async () => {
-      // setEcho(await EchoConfig())
-      socket = await EchoConfig()
-      if(socket){
-        window.Echo = socket 
-        window.Echo.private("testing")
-        .listen('FriendRequest', (e:any) => {
-          console.log("berhasil")
-          console.log(e.message)
-          setMessage(e.message)
-        })
-      }
-    }
-    initial()
+    ApiClient.get(`/api/messages/chat-list`)
+    .then((res) => {
+      console.log(res.data)
+      })
+    .catch((err) => {
+      console.log(err.response.data)
+      })
   },[])
  
   const addNotification = () => {

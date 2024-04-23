@@ -3,6 +3,7 @@ import { usePathname } from "next/navigation"
 import RoundedImage from "../ui/RoundedImage"
 import ChatIcon from "../icons/ChatIcon"
 import Link from "next/link"
+import ChatListSkeleton from "../skeleton/ChatListSkeleton"
 
 const ChatMenu = () => {
   const path = usePathname()
@@ -18,6 +19,7 @@ const ChatMenu = () => {
         <ChatItem />
         <ChatItem />
         <ChatItem />
+        <ChatListSkeleton count={4} />
       </div>
     </div>
   )
@@ -38,7 +40,6 @@ const ChatItem = () => {
           </span>
         </div>
       </div>
-
     </Link>
   )
 }
