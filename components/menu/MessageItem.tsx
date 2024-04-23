@@ -1,3 +1,5 @@
+import { dateToTime } from "@/helpers/time"
+
 const MessageItem = ({message}:{message:Message}) => {
   return (
     <div className={`w-full flex items-center ${message.isCurrentAuth ? "justify-end" : "justify-start"}`}>
@@ -8,7 +10,7 @@ const MessageItem = ({message}:{message:Message}) => {
         {message.message}
         </div>
         <div>
-          <span className="text-xs text-gray-600 dark:text-d_semiLight">12.00 PM</span>
+          <span className="text-xs text-gray-600 dark:text-d_semiLight">{dateToTime(new Date(message.created_at))}</span>
         </div>
       </div>
 

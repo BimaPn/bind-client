@@ -2,13 +2,14 @@
 import { HiOutlineDotsHorizontal } from "react-icons/hi"
 import { IoSend } from "react-icons/io5"
 import { BsEmojiSmile } from "react-icons/bs"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import BackButton from "../ui/BackButton"
 import RoundedImage from "../ui/RoundedImage"
 import MessageItem from "../menu/MessageItem"
 import Link from "next/link"
 import TextArea from "../ui/TextArea"
 import PickEmoji from "../ui/PickEmoji"
+import ApiClient from "@/app/api/axios/ApiClient"
 
 const ChatSection = ({initialMessages=[], userTarget}:{initialMessages?: Message[], userTarget: UserChat}) => {
   const [messages, setMessages] = useState<Message[]>(initialMessages)
@@ -26,7 +27,10 @@ const ChatSection = ({initialMessages=[], userTarget}:{initialMessages?: Message
         </div>  
       </div>
       
-      <Footer />
+      <Footer
+      onSendMessage={(message) => setMessages((prev) => [...prev, message])}
+      targetUsername={userTarget.username} 
+      />
 
     </section>
 
@@ -56,10 +60,28 @@ const Header = ({userTarget}:{userTarget: UserChat}) => {
   )
 }
 
-const Footer = () => {
+const Footer = ({onSendMessage,targetUsername}:{onSendMessage: (message: Message) => void, targetUsername:string}) => {
   const [message, setMessage] = useState<string>("")
+  const [disabled, setDisabled] = useState<boolean>(false) 
+
+  useEffect(() => {
+  setDisabled(message.length <= 0)
+  },[message])
+  const onSend = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    setDisabled(true)
+    ApiClient.post(`/api/messages/${targetUsername}/create`,{message})
+    .then((res) => {
+      setDisabled(false)
+      onSendMessage(res.data.message)
+    })
+    .catch((err) => {
+      setDisabled(false)
+      console.error(err.response.data)
+    })
+  }
   return (
-    <div className="flexBetween gap-1 py-2 px-1 sm:px-3">
+    <form onSubmit={onSend} className="flexBetween gap-1 py-2 px-1 sm:px-3">
       <div className='w-full border dark:border-d_netral flexCenter gap-2 rounded-2xl pr-3 pl-4'>
        <TextArea
         value={message}
@@ -74,10 +96,10 @@ const Footer = () => {
         </PickEmoji>
         </div>
       </div>
-      <div className="px-2">
-        <IoSend className="text-2xl text-blue-500 hover:text-blue-400 cursor-pointer" />
-      </div>
-    </div>
+      <button disabled={disabled} type="submit" className="text-blue-500 hover:text-blue-400 disabled:text-blue-400 disabled:cursor-not-allowed px-2">
+        <IoSend className="text-2xl cursor-pointer" />
+      </button>
+    </form>
   )
 }
 

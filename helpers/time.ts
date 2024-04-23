@@ -24,8 +24,12 @@ export const formatDate = (date: string) => {
     return `${month}/${day}/${year}`;
   }
 
-  const hours = compareDate.getHours();
-  const minutes = compareDate.getMinutes();
+  return dateToTime(compareDate)
+}
+
+export const dateToTime = (date: Date) => {
+  const hours = date.getHours();
+  const minutes = date.getMinutes();
   const ampm = hours >= 12 ? 'PM' : 'AM';
   const formattedHours = hours % 12 === 0 ? 12 : hours % 12;
   const formattedMinutes = minutes < 10 ? '0' + minutes : minutes;
