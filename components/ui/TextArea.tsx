@@ -15,7 +15,7 @@ const TextArea = ({className,rows,...props}:TextareaHTMLAttributes<HTMLTextAreaE
     <textarea 
     ref={textarea}
     rows={rows}
-    className={`w-full border overflow-y-hidden resize-none focus:outline-none ${className}`}
+    className={`w-full border overflow-y-auto max-h-[128px] resize-none focus:outline-none flex items-center ${className}`}
     {...props}>
     </textarea>
   )

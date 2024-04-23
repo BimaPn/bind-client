@@ -42,7 +42,8 @@ const PostCommentBar = ({postId} : {postId : string | number}) => {
       rows={1}
       onChange={(e) => setComment(e.target.value)}
       className='w-full bg-semiLight dark:bg-d_netral px-3 py-[10px] border-0 rounded-xl focus:outline-none dark:placeholder:text-d_semiLight'
-      placeholder='Write a comment...'/>
+      placeholder='Write a comment...'
+      />
     </div>
     <button disabled={disabled} className="disabled:opacity-40 disabled:cursor-not-allowed">
         < IoSend className='text-2xl text-semiDark dark:text-light' />
