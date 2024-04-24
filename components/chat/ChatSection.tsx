@@ -12,22 +12,44 @@ import PickEmoji from "../ui/PickEmoji"
 import ApiClient from "@/app/api/axios/ApiClient"
 import { compareDate, formatDate } from "@/helpers/time"
 import { useChatList } from "../providers/ChatListProvider"
+import EchoConfig from "@/app/api/pusher"
 
-const ChatSection = ({initialMessages=[], userTarget}:{initialMessages?: Message[], userTarget: UserChat}) => {
+const ChatSection = ({initialMessages=[], authId, userTarget}:{initialMessages?: Message[], authId: string,userTarget: UserChat}) => {
   const [messages, setMessages] = useState<Message[]>(initialMessages)
   const { addToList } = useChatList()
   const messagesContainer = useRef<HTMLDivElement>(null) 
 
-  useEffect(() => {
-    const scrollToBottom = () => {
-      if (messagesContainer.current) {
-        const element = messagesContainer.current;
-        element.scrollTop = element.scrollHeight;
-      }
-    };
+  const scrollToBottom = () => {
+    if (messagesContainer.current) {
+      const element = messagesContainer.current;
+      element.scrollTop = element.scrollHeight;
+    }
+  };
 
-    scrollToBottom()
+  useEffect(() => {
+    const initial = async () => {
+      let socket;
+      socket = await EchoConfig()
+      if(socket){
+        window.Echo = socket 
+        window.Echo.private(`chat.${authId}`)
+        .listen('SendedMessage', (e:any) => {
+          const newMessage = {
+            id: e.message.id,
+            message: e.message.message,
+            created_at: e.message.created_at,
+            isCurrentAuth: false
+          }
+          setMessages((prev) => [...prev, newMessage])
+        })
+      }
+    }
+    initial()
   },[])
+
+  useEffect(() => {
+    scrollToBottom()
+  },[messages])
 
   const addMessage = (message: Message) => {
     addToList({
@@ -104,6 +126,7 @@ const Footer = ({onSendMessage,targetUsername}:{onSendMessage: (message: Message
     setDisabled(true)
     ApiClient.post(`/api/messages/${targetUsername}/create`,{message})
     .then((res) => {
+      setMessage("")
       setDisabled(false)
       onSendMessage(res.data.message)
     })

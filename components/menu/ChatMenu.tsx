@@ -8,10 +8,11 @@ import { useEffect } from "react"
 import ApiClient from "@/app/api/axios/ApiClient"
 import { formatDate } from "@/helpers/time"
 import { useChatList } from "../providers/ChatListProvider"
+import EchoConfig from "@/app/api/pusher"
 
-const ChatMenu = () => {
+const ChatMenu = ({userId}:{userId:string}) => {
   const path = usePathname()
-  const { users, setUsers } = useChatList()
+  const { users, setUsers, addToList } = useChatList()
   useEffect(() => {
     ApiClient.get(`/api/messages/chat-list`)
     .then((res) => {
@@ -20,6 +21,24 @@ const ChatMenu = () => {
     .catch((err) => {
       console.log(err.response.data)
     })
+
+    const initial = async () => {
+      let socket;
+      socket = await EchoConfig()
+      if(socket){
+        window.Echo = socket 
+        window.Echo.private(`chat.${userId}`)
+        .listen('SendedMessage', (e:any) => {
+          const newChat: ChatItem = {
+            message: e.message.message,
+            created_at: e.message.created_at,
+            user: e.user
+          }
+          addToList(newChat)
+        })
+      }
+    }
+    initial()
   },[])
   return (
     <div className={`w-full md:w-[512px] flex flex-col bg-white dark:bg-d_semiDark rounded-xl sm:shadow ${path !== "/chat" && "hidden md:block"} py-4`}>

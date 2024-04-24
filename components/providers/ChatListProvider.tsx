@@ -7,9 +7,11 @@ const ChatListProvider = ({children}:{children:React.ReactNode}) => {
   const [users, setUsers] = useState<ChatItem[] | null>(null)
 
   const addToList = (chat: ChatItem) => {
-    if(!users) return;
-    const filteredData = users.filter((user) => user.user.username !== chat.user.username)
-    setUsers([chat, ...filteredData])
+    setUsers((prev) => {
+      if(!prev) return null
+      const filteredData = prev.filter((user) => user.user.username !== chat.user.username)
+      return [chat, ...filteredData]
+    })
   }
   return (
     <chatListContext.Provider value={{ users, setUsers, addToList }}>

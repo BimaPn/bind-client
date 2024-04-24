@@ -25,7 +25,7 @@ const EchoConfig = async () => {
         'Authorization': `Bearer ${session!.user.access_token}`,
       }
   },
-  authEndpoint: `${process.env.NEXT_PUBLIC_DATABASE_URL}/api/broadcasting/auth`,
+  authEndpoint: `${process.env.NEXT_PUBLIC_DATABASE_URL}/broadcasting/auth`,
   }
 )
 }
