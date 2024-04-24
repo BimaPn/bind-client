@@ -2,7 +2,7 @@
 import { HiOutlineDotsHorizontal } from "react-icons/hi"
 import { IoSend } from "react-icons/io5"
 import { BsEmojiSmile } from "react-icons/bs"
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import BackButton from "../ui/BackButton"
 import RoundedImage from "../ui/RoundedImage"
 import MessageItem from "../menu/MessageItem"
@@ -10,25 +10,57 @@ import Link from "next/link"
 import TextArea from "../ui/TextArea"
 import PickEmoji from "../ui/PickEmoji"
 import ApiClient from "@/app/api/axios/ApiClient"
+import { compareDate, formatDate } from "@/helpers/time"
+import { useChatList } from "../providers/ChatListProvider"
 
 const ChatSection = ({initialMessages=[], userTarget}:{initialMessages?: Message[], userTarget: UserChat}) => {
   const [messages, setMessages] = useState<Message[]>(initialMessages)
+  const { addToList } = useChatList()
+  const messagesContainer = useRef<HTMLDivElement>(null) 
+
+  useEffect(() => {
+    const scrollToBottom = () => {
+      if (messagesContainer.current) {
+        const element = messagesContainer.current;
+        element.scrollTop = element.scrollHeight;
+      }
+    };
+
+    scrollToBottom()
+  },[])
+
+  const addMessage = (message: Message) => {
+    addToList({
+      user: userTarget,
+      message: message.message,
+      created_at:message.created_at
+    })
+    setMessages((prev) => [...prev, message])
+  }
   return (
    <section className={`w-full flex flex-col bg-white dark:bg-d_semiDark rounded-xl sm:shadow
     sm:static fixed inset-0 z-[1000] sm:z-0`}>
       
       <Header userTarget={userTarget} />
 
-      <div className="basis-full overflow-auto bg-semiLight dark:bg-d_dark rounded-xl sm:mx-3">
+      <div ref={messagesContainer} className="basis-full overflow-auto bg-semiLight dark:bg-d_dark rounded-xl sm:mx-3">
         <div className="flex flex-col gap-4 px-3 pb-2 pt-4">
-          {messages.map((message) => (
-          <MessageItem key={message.id} message={message} />
+          {messages.map((message, index) => (
+          <>
+            {index === 0 && (
+              <TimeBadge key={index} time={formatDate(message.created_at, true)} />
+            )}
+            {index > 0 && !compareDate(message.created_at, messages[index-1].created_at) && (
+              <TimeBadge key={index} time={formatDate(message.created_at, true)} />
+            )}
+            <MessageItem key={message.id} message={message} />
+          </>
           ))}
         </div>  
       </div>
       
       <Footer
-      onSendMessage={(message) => setMessages((prev) => [...prev, message])}
+      onSendMessage={(message) => addMessage(message)}
       targetUsername={userTarget.username} 
       />
 
@@ -107,7 +139,7 @@ const TimeBadge = ({time}:{time:string}) => {
   return (
     <div className="flexCenter mb-1">
       <div className="bg-white dark:bg-d_netral px-3 py-1 rounded-full text-xs">
-        Today
+        {time} 
       </div>
     </div>  
   )

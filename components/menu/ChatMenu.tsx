@@ -4,13 +4,14 @@ import RoundedImage from "../ui/RoundedImage"
 import ChatIcon from "../icons/ChatIcon"
 import Link from "next/link"
 import ChatListSkeleton from "../skeleton/ChatListSkeleton"
-import { useEffect, useState } from "react"
+import { useEffect } from "react"
 import ApiClient from "@/app/api/axios/ApiClient"
 import { formatDate } from "@/helpers/time"
+import { useChatList } from "../providers/ChatListProvider"
 
 const ChatMenu = () => {
   const path = usePathname()
-  const [users, setUsers] = useState<ChatItem[] | null>(null)
+  const { users, setUsers } = useChatList()
   useEffect(() => {
     ApiClient.get(`/api/messages/chat-list`)
     .then((res) => {

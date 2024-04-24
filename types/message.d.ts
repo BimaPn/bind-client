@@ -15,3 +15,9 @@ type UserChat = {
   profile_picture: string
   username: string
 }
+
+type ChatListProviderProps = {
+  users: ChatItem[] | null
+  setUsers: Dispatch<SetStateAction<ChatItem[] | null>>
+  addToList: (chat: ChatItem) => void
+}

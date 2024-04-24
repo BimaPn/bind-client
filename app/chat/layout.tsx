@@ -1,4 +1,5 @@
 import ChatMenu from '@/components/menu/ChatMenu'
+import ChatListProvider from '@/components/providers/ChatListProvider'
 import MainLayout from '@/layouts/MainLayout'
 import type { Metadata } from 'next'
 
@@ -14,12 +15,14 @@ export default function RootLayout({
 }) {
   return (
     <MainLayout disabledDiscover>
-      <section className="w-full flexCenter">
-        <div className='min-h-[93vh] ss:min-h-[81vh] sm:min-h-fit sm:h-[80vh] md:h-[80vh] w-full sm:w-[80%] md:w-full flex gap-6'>
-          <ChatMenu />
-          {children}
-        </div>
-      </section>
+      <ChatListProvider>
+        <section className="w-full flexCenter">
+          <div className='min-h-[93vh] ss:min-h-[81vh] sm:min-h-fit sm:h-[80vh] md:h-[80vh] w-full sm:w-[80%] md:w-full flex gap-6'>
+            <ChatMenu />
+            {children}
+          </div>
+        </section>
+      </ChatListProvider>
     </MainLayout>
   )
 }
