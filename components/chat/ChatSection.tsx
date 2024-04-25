@@ -16,7 +16,7 @@ import EchoConfig from "@/app/api/pusher"
 
 const ChatSection = ({initialMessages=[], authId, userTarget}:{initialMessages?: Message[], authId: string,userTarget: UserChat}) => {
   const [messages, setMessages] = useState<Message[]>(initialMessages)
-  const { addToList } = useChatList()
+  const { addToList, clearUnread } = useChatList()
   const messagesContainer = useRef<HTMLDivElement>(null) 
 
   const scrollToBottom = () => {
@@ -34,17 +34,35 @@ const ChatSection = ({initialMessages=[], authId, userTarget}:{initialMessages?:
         window.Echo = socket 
         window.Echo.private(`chat.${authId}`)
         .listen('SendedMessage', (e:any) => {
-          const newMessage = {
-            id: e.message.id,
+          if(e.user.username === userTarget.username) {
+            const newMessage = {
+              id: e.message.id,
+              message: e.message.message,
+              created_at: e.message.created_at,
+              isCurrentAuth: false
+            }
+            setMessages((prev) => [...prev, newMessage])
+            ApiClient.post(`/api/messages/${userTarget.username}/mark-last-seen`)
+            .then(() => {
+              console.log("berhaisl")
+              })
+            .catch((err) => {
+              console.log(err.response.data)
+            })
+          }
+
+          const newChat: ChatItem = {
             message: e.message.message,
             created_at: e.message.created_at,
-            isCurrentAuth: false
+            user: e.user,
+            isRead : e.user.username === userTarget.username ? true : e.message.isRead
           }
-          setMessages((prev) => [...prev, newMessage])
+          addToList(newChat)
         })
       }
     }
     initial()
+    clearUnread(userTarget.username)
   },[])
 
   useEffect(() => {
@@ -55,7 +73,8 @@ const ChatSection = ({initialMessages=[], authId, userTarget}:{initialMessages?:
     addToList({
       user: userTarget,
       message: message.message,
-      created_at:message.created_at
+      created_at:message.created_at,
+      isRead: true
     })
     setMessages((prev) => [...prev, message])
   }
@@ -68,15 +87,15 @@ const ChatSection = ({initialMessages=[], authId, userTarget}:{initialMessages?:
       <div ref={messagesContainer} className="basis-full overflow-auto bg-semiLight dark:bg-d_dark rounded-xl sm:mx-3">
         <div className="flex flex-col gap-4 px-3 pb-2 pt-4">
           {messages.map((message, index) => (
-          <>
+          <li key={index} className="flex flex-col gap-4">
             {index === 0 && (
-              <TimeBadge key={index} time={formatDate(message.created_at, true)} />
+              <TimeBadge time={formatDate(message.created_at, true)} />
             )}
             {index > 0 && !compareDate(message.created_at, messages[index-1].created_at) && (
-              <TimeBadge key={index} time={formatDate(message.created_at, true)} />
+              <TimeBadge time={formatDate(message.created_at, true)} />
             )}
-            <MessageItem key={message.id} message={message} />
-          </>
+            <MessageItem message={message} />
+          </li>
           ))}
         </div>  
       </div>

@@ -13,8 +13,19 @@ const ChatListProvider = ({children}:{children:React.ReactNode}) => {
       return [chat, ...filteredData]
     })
   }
+  const clearUnread = (username: string) => {
+    setUsers((prev) => {
+      if(!prev) return null
+      return prev.map((chat) => {
+        if(chat.user.username === username) {
+          chat.isRead = true
+        }
+        return chat
+      })
+    })
+  }
   return (
-    <chatListContext.Provider value={{ users, setUsers, addToList }}>
+    <chatListContext.Provider value={{ users, setUsers, addToList, clearUnread }}>
     {children}
     </chatListContext.Provider>
   )

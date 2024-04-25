@@ -10,7 +10,7 @@ import { formatDate } from "@/helpers/time"
 import { useChatList } from "../providers/ChatListProvider"
 import EchoConfig from "@/app/api/pusher"
 
-const ChatMenu = ({userId}:{userId:string}) => {
+const ChatMenu = () => {
   const path = usePathname()
   const { users, setUsers, addToList } = useChatList()
   useEffect(() => {
@@ -21,24 +21,6 @@ const ChatMenu = ({userId}:{userId:string}) => {
     .catch((err) => {
       console.log(err.response.data)
     })
-
-    const initial = async () => {
-      let socket;
-      socket = await EchoConfig()
-      if(socket){
-        window.Echo = socket 
-        window.Echo.private(`chat.${userId}`)
-        .listen('SendedMessage', (e:any) => {
-          const newChat: ChatItem = {
-            message: e.message.message,
-            created_at: e.message.created_at,
-            user: e.user
-          }
-          addToList(newChat)
-        })
-      }
-    }
-    initial()
   },[])
   return (
     <div className={`w-full md:w-[512px] flex flex-col bg-white dark:bg-d_semiDark rounded-xl sm:shadow ${path !== "/chat" && "hidden md:block"} py-4`}>
@@ -66,9 +48,12 @@ const ChatItem = ({chat}:{chat:ChatItem}) => {
           <span className="text-[11px] text-gray-600 dark:text-d_semiLight">{formatDate(chat.created_at)}</span>
         </div>
         <div className="w-full flexBetween">
-          <span className="w-[90%] text-[15px] text-gray-600 dark:text-d_semiLight line-clamp-1">
+          <span className={`w-[90%] text-[15px] text-gray-600 dark:text-d_semiLight line-clamp-1 ${!chat.isRead && "font-semibold"}`}>
           {chat.message}
           </span>
+          {!chat.isRead && (
+            <div className="w-2 aspect-square bg-blue-500 rounded-full" />
+          )}
         </div>
       </div>
     </Link>
