@@ -13,10 +13,12 @@ import ApiClient from "@/app/api/axios/ApiClient"
 import { compareDate, formatDate } from "@/helpers/time"
 import { useChatList } from "../providers/ChatListProvider"
 import EchoConfig from "@/app/api/pusher"
+import { useChatCount } from "../providers/ChatCountProvider"
 
 const ChatSection = ({initialMessages=[], authId, userTarget}:{initialMessages?: Message[], authId: string,userTarget: UserChat}) => {
   const [messages, setMessages] = useState<Message[]>(initialMessages)
   const { addToList, clearUnread } = useChatList()
+  const { modifyCount } = useChatCount()
   const messagesContainer = useRef<HTMLDivElement>(null) 
 
   const scrollToBottom = () => {
@@ -42,6 +44,7 @@ const ChatSection = ({initialMessages=[], authId, userTarget}:{initialMessages?:
               isCurrentAuth: false
             }
             setMessages((prev) => [...prev, newMessage])
+            modifyCount(-1)
             ApiClient.post(`/api/messages/${userTarget.username}/mark-last-seen`)
             .then(() => {
               console.log("berhaisl")

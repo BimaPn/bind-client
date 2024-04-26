@@ -5,6 +5,7 @@ import PostContext from '@/components/providers/PostContext'
 import AuthProvider from '@/components/providers/AuthContext'
 import 'react-loading-skeleton/dist/skeleton.css'
 import DarkModeProvider from '@/components/providers/DarkModeProvider'
+import ChatCountProvider from '@/components/providers/ChatCountProvider'
 
 const roboto = Roboto ({ 
   weight: ['400', '500', '700'],
@@ -27,7 +28,9 @@ export default function RootLayout({
         <DarkModeProvider>
           <AuthProvider>
             <PostContext>
-              {children}
+              <ChatCountProvider>
+                {children}
+              </ChatCountProvider>
             </PostContext>
           </AuthProvider>
         </DarkModeProvider>

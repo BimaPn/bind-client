@@ -9,7 +9,7 @@ import GroupIcon from "../icons/GroupIcon"
 import ChatIcon from "../icons/ChatIcon"
 import NotificationIcon from "../icons/NotificationIcon"
 
-const Navigation = ({username,className}:{username :string,className?:string}) => {
+const Navigation = ({userId, username, className}:{userId:any, username :any,className?:string}) => {
     const pathname = usePathname()
   return (
         <div className={`flex text-dark dark:text-d_light ${className}`}>
@@ -47,10 +47,20 @@ const Navigation = ({username,className}:{username :string,className?:string}) =
             </div>
             </Link>
 
-            <Link href={`/chat`} className='ss:hidden flex items-center gap-1 py-2 px-2 rounded-lg cursor-pointer'>
+            <Link
+            href={`/chat`}
+            className={`flex items-center gap-3 py-2 px-2 
+            hover:bg-semiLight dark:hover:bg-d_netral rounded-lg cursor-pointer ${pathname.includes('/chat') && 'font-medium'}`}>
             <div className="w-8 flexCenter">
-                < ChatIcon width={25}/>
+              <ChatIcon
+              userId={userId}
+              active={pathname.includes('/chat') ? true : false}
+              width={24}
+              />
             </div>
+            <span className="hidden lg:block">
+                Chats 
+            </span>
             </Link>
 
             <Link

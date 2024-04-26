@@ -1,5 +1,48 @@
+"use client"
+import ApiClient from "@/app/api/axios/ApiClient"
+import EchoConfig from "@/app/api/pusher"
+import { useEffect, useState } from "react"
+import { useChatCount } from "../providers/ChatCountProvider"
 
-const ChatIcon = ({width=24,active = false,className}:{width?:number,active?:boolean,className?:string}) => {
+const ChatIcon = ({width=24,active = false,userId,className}:{width?:number,active?:boolean,userId: string,className?:string}) => {
+  const { chatCount, initialCount, modifyCount } = useChatCount()
+
+  useEffect(() => {
+    ApiClient.get(`/api/messages/unread-count`)
+    .then((res) => {
+      initialCount(res.data.count)
+    })
+    .catch((err) => {
+      console.log(err.response.data)
+    })
+    const initial = async () => {
+      let socket;
+      socket = await EchoConfig()
+      if(socket){
+        window.Echo = socket 
+        window.Echo.private(`chat.${userId}`)
+        .listen('SendedMessage', (e:any) => {
+           modifyCount(1) 
+        })
+      }
+    }
+    initial()
+  },[])
+  return (
+    <div className="relative">
+      <ChatSvg width={width} active={active} className={className} />
+        {chatCount > 0 && (
+          <div className={`${chatCount <= 10 ? "w-[15px] text-[10px]":"w-4 text-[9px]"} absolute -top-1 -right-1 flexCenter aspect-square rounded-full bg-red-500 font-bold`}>
+          {(chatCount <= 10) && chatCount}
+          {(chatCount > 10) && `${chatCount}+`}
+          </div>
+        )}
+
+    </div>
+  )
+}
+
+export const ChatSvg = ({width=24,active = false,className}:{width?:number,active?:boolean,className?:string}) => {
   return (
   <svg width={width} className={className} viewBox="0 0 101 93" fill="none" xmlns="http://www.w3.org/2000/svg">
     <path d="M71.5 7.5L51.5 3.5L32 7.5L13 23.5L5.5 48.5L15 73L5.5 90H24.5H53L74.5 84.5L87.5 73L96 56.5V37L87.5 20L71.5 7.5Z" className={active ? 'fill-dark dark:fill-light':'fill-none'}/>

@@ -20,7 +20,7 @@ const page = async ({params}:Props) => {
   })
   return (
     <>
-      <ChatSection initialMessages={data.messages} userTarget={data.userTarget} authId={session?.user.id} />
+      <ChatSection initialMessages={data.messages} userTarget={data.userTarget} authId={session?.user.id as string} />
     </>
    )
 }
