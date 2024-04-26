@@ -1,18 +1,19 @@
 "use client"
-import { createContext, useContext, useState } from "react"
+import { createContext, useCallback, useContext, useState } from "react"
 
 const chatListContext = createContext<ChatListProviderProps | null>(null)
 
 const ChatListProvider = ({children}:{children:React.ReactNode}) => {
   const [users, setUsers] = useState<ChatItem[] | null>(null)
 
-  const addToList = (chat: ChatItem) => {
+  const addToList = useCallback((chat: ChatItem) => {
     setUsers((prev) => {
       if(!prev) return null
       const filteredData = prev.filter((user) => user.user.username !== chat.user.username)
       return [chat, ...filteredData]
     })
-  }
+  },[])
+
   const clearUnread = (username: string) => {
     setUsers((prev) => {
       if(!prev) return null
@@ -25,7 +26,7 @@ const ChatListProvider = ({children}:{children:React.ReactNode}) => {
     })
   }
   return (
-    <chatListContext.Provider value={{ users, setUsers, addToList, clearUnread }}>
+    <chatListContext.Provider value={{ users, setUsers, addToList, clearUnread}}>
     {children}
     </chatListContext.Provider>
   )

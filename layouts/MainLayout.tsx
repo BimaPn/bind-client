@@ -15,7 +15,7 @@ const MainLayout = async ({children,navbarMobile = true, disabledDiscover=false,
       <div className='block sm:hidden bg-light dark:bg-d_semiDark fixed bottom-0 right-0 left-0 py-1 border-t dark:border-d_netral z-[990]'>
         <Navigation
         userId={session?.user.id as string} 
-        username={session?.user.string as string} 
+        username={session?.user.username as string} 
         className="items-center justify-evenly w-full"
         />
       </div>

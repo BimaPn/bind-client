@@ -36,39 +36,30 @@ const ChatSection = ({initialMessages=[], authId, userTarget}:{initialMessages?:
         window.Echo = socket 
         window.Echo.private(`chat.${authId}`)
         .listen('SendedMessage', (e:any) => {
-          if(e.user.username === userTarget.username) {
-            const newMessage = {
-              id: e.message.id,
-              message: e.message.message,
-              created_at: e.message.created_at,
-              isCurrentAuth: false
-            }
-            setMessages((prev) => [...prev, newMessage])
-            modifyCount(-1)
-            ApiClient.post(`/api/messages/${userTarget.username}/mark-last-seen`)
-            .then(() => {
-              console.log("berhaisl")
-              })
-            .catch((err) => {
-              console.log(err.response.data)
-            })
-          }
-
-          const newChat: ChatItem = {
+          if(e.user.username !== userTarget.username) return;
+          const newMessage = {
+            id: e.message.id,
             message: e.message.message,
             created_at: e.message.created_at,
-            user: e.user,
-            isRead : e.user.username === userTarget.username ? true : e.message.isRead
+            isCurrentAuth: false
           }
-          addToList(newChat)
+          setMessages((prev) => [...prev, newMessage])
+          clearUnread(userTarget.username)
+          modifyCount(-1)
+          ApiClient.post(`/api/messages/${userTarget.username}/mark-last-seen`)
+          .catch((err) => {
+            console.log(err.response.data)
+          })
         })
       }
     }
     initial()
-    clearUnread(userTarget.username)
   },[])
 
   useEffect(() => {
+    if(!messages[messages.length-1].isCurrentAuth) {
+      clearUnread(userTarget.username)
+    }
     scrollToBottom()
   },[messages])
 
