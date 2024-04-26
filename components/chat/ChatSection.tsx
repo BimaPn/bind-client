@@ -44,12 +44,6 @@ const ChatSection = ({initialMessages=[], authId, userTarget}:{initialMessages?:
             isCurrentAuth: false
           }
           setMessages((prev) => [...prev, newMessage])
-          clearUnread(userTarget.username)
-          modifyCount(-1)
-          ApiClient.post(`/api/messages/${userTarget.username}/mark-last-seen`)
-          .catch((err) => {
-            console.log(err.response.data)
-          })
         })
       }
     }
@@ -57,11 +51,20 @@ const ChatSection = ({initialMessages=[], authId, userTarget}:{initialMessages?:
   },[])
 
   useEffect(() => {
-    if(!messages[messages.length-1].isCurrentAuth) {
+    if(messages.length > 0 && !messages[messages.length-1].isCurrentAuth) {
       clearUnread(userTarget.username)
+      markLastSeen()
+      modifyCount(-1)
     }
     scrollToBottom()
   },[messages])
+
+  const markLastSeen = () => {
+    ApiClient.post(`/api/messages/${userTarget.username}/mark-last-seen`)
+    .catch((err) => {
+      console.log(err.response.data)
+    })
+  }
 
   const addMessage = (message: Message) => {
     addToList({

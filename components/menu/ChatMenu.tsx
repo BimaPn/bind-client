@@ -46,7 +46,6 @@ const ChatMenu = ({userId}:{userId:string}) => {
     <div className={`w-full md:w-[512px] flex flex-col bg-white dark:bg-d_semiDark rounded-xl sm:shadow ${path !== "/chat" && "hidden md:block"} py-4`}>
       <div className="mb-3 text-dark -mt-1 px-4">
         <div className="flex items-center pb-3 gap-2 border-b dark:border-d_netral">
-          <ChatSvg active width={21} className="-mb-[2px]"/>
           <span className="font-semibold text-xl dark:text-white">Chat</span>
         </div>
       </div>

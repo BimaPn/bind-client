@@ -15,7 +15,7 @@ const ChatCountProvider = ({children}:{children: React.ReactNode}) => {
 
   const modifyCount = (value: number) => {
     if(chatCount < 0 || (value < 0 && chatCount <= 0)) return;
-    setChatCount((prev) => prev+value)
+    setChatCount((prev) => prev + value)
   }
   const initialCount = (value:number) => {
     if(value < 0) return;

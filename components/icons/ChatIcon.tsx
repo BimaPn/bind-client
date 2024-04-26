@@ -22,7 +22,10 @@ const ChatIcon = ({width=24,active = false,userId,className}:{width?:number,acti
         window.Echo = socket 
         window.Echo.private(`chat.${userId}`)
         .listen('SendedMessage', (e:any) => {
-           modifyCount(1) 
+          console.log(e.isPreviousUnreadExist)
+          if(!e.isPreviousUnreadExist) {
+            modifyCount(1)
+          }
         })
       }
     }

@@ -23,3 +23,4 @@ type ChatListProviderProps = {
   addToList: (chat: ChatItem) => void
   clearUnread: (username: string) => void
 }
+
