@@ -12,13 +12,15 @@ const ProfileDropdown = ({name,username,profile_picture,className} : {name:strin
   return  (
     <Dropdown>
       <Dropdown.Trigger>
-        <div className={`flexBetween gap-3 hover:bg-semiLight dark:hover:bg-d_netral dark:text-d_light ${className} px-2 rounded-lg cursor-pointer py-1`}>
-            < RoundedImage
+        <div className={`flexBetween gap-3 hover:bg-semiLight dark:hover:bg-d_netral dark:text-d_light ${className} sm:px-2 rounded-lg cursor-pointer sm:py-1`}>
+          <div className="flex items-center gap-2 max-w-[85%]">
+            <RoundedImage
             src={profile_picture}
             alt="profile picture"
-            className="w-[72px]" /> 
-            <span className="font-medium text-sm w-full truncate">{name}</span>
-            < MdArrowForwardIos className="text-xl rotate-90" />
+            className="min-w-[34px] w-[34px] sm:min-w-[36px] sm:w-[36px]" /> 
+            <span className="font-medium text-sm hidden sm:block w-full truncate">{name} dsajdhaskjdhaskjhdkasud</span>
+          </div>
+          <MdArrowForwardIos className="text-sm rotate-90 hidden sm:block" />
         </div>
       </Dropdown.Trigger>
 

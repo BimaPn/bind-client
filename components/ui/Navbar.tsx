@@ -18,26 +18,27 @@ const Navbar = async ({className}:{className?:string}) => {
         <div className='boxWidth grid grid-cols-2 md:grid-cols-[1fr_2.5fr_1fr] py-[6px]'>
             {/* logo */}
             <div className='flex py-3'>
-            < ApplicationLogo />
+            <ApplicationLogo />
             </div>
             {/* search */}
             <div className='hidden md:flex items-center justify-center'>
-                < Search className='w-[70%] xl:w-[70%]' />
+                <Search className='w-[70%] xl:w-[70%]' />
             </div>
             {/* props */}
             <div className='flex items-center justify-end gap-3'>
                 <div className='ss:block hidden'>
                   <NotificationDropdown />
                 </div>
-                <div className='hidden sm:block'>
-                    < ProfileDropdown
+                <div className='hidden ss:block'>
+                    <ProfileDropdown
                     name={session?.user.name as string} 
                     username={session?.user.username as string}
                     profile_picture={session?.user.profile_picture as string} 
-                    className='w-44' />
+                    className='w-fit sm:w-44'
+                    />
                 </div>
                 <CreatePostModal profilePicture={session?.user.profile_picture as string} className='block ss:hidden'>
-                    < IoIosAddCircleOutline className='text-3xl text-dark dark:text-light' />
+                    <IoIosAddCircleOutline className='text-3xl text-dark dark:text-light' />
                 </CreatePostModal>
                 < CgMenuRight className='text-[26px] text-dark dark:text-light block ss:hidden' />
             </div>

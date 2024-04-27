@@ -11,7 +11,7 @@ import NotificationIcon from "../icons/NotificationIcon"
 import { comparePath } from "@/constants"
 
 const Navigation = ({userId, username, className}:{userId:any, username :any,className?:string}) => {
-    const pathname = usePathname()
+  const pathname = usePathname()
   return (
         <div className={`flex text-dark dark:text-d_light ${className}`}>
             <NavItem
@@ -67,6 +67,7 @@ const Navigation = ({userId, username, className}:{userId:any, username :any,cla
             <NavItem
             name="Saved"
             path={`/saved`} 
+            className="!hidden ss:!flex"
             icon={
             <BiSolidBookmark 
             className={`stroke-dark dark:stroke-light 
@@ -80,6 +81,7 @@ const Navigation = ({userId, username, className}:{userId:any, username :any,cla
             <NavItem
             name="Profile"
             path={`/user/${username}`} 
+            className="ss:hidden"
             icon={
               <UserIcon
               active={comparePath(pathname, `/user/${username}`)} 
@@ -94,13 +96,13 @@ const Navigation = ({userId, username, className}:{userId:any, username :any,cla
   )
 }
 
-const NavItem = ({isActive, path, name, icon}:{isActive: boolean, path:string, name:string, icon: React.ReactNode}) => {
+const NavItem = ({isActive, path, name, icon, className}:{isActive: boolean, path:string, name:string, icon: React.ReactNode, className?:string}) => {
   return (
     <Link
     href={path}
     className={`sm:w-full flex items-center gap-2 py-2 px-2 
     hover:bg-semiLight dark:hover:bg-d_netral rounded-lg cursor-pointer 
-    ${isActive && 'font-medium'}`}
+    ${isActive && 'font-medium'} ${className}`}
     >
       <div className="w-8 flexCenter">
       {icon} 
