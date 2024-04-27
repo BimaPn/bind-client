@@ -1,11 +1,11 @@
 import { Metadata } from 'next';
 import UserProfileContext from "@/components/providers/UserProfileContext";
 import { getServerSession } from "next-auth";
-import { authOptions } from "../../api/auth/[...nextauth]/route";
 import UserHeader from "@/components/users/UserHeader";
 import UserBody from "@/components/users/UserBody";
 import PageHeader from "@/components/ui/PageHeader";
 import axios from "axios";
+import { authOptions } from '@/app/api/auth/[...nextauth]/route';
 
 const getUserData = async (username : string | number) => {
   const session = await getServerSession(authOptions)

@@ -9,10 +9,12 @@ import ApiClient from "@/app/api/axios/ApiClient"
 import { formatDate } from "@/helpers/time"
 import { useChatList } from "../providers/ChatListProvider"
 import EchoConfig from "@/app/api/pusher"
+import Echo from "laravel-echo"
 
 const ChatMenu = ({userId}:{userId:string}) => {
   const path = usePathname()
   const { users, setUsers, addToList} = useChatList()
+
   useEffect(() => {
     ApiClient.get(`/api/messages/chat-list`)
     .then((res) => {
@@ -22,12 +24,11 @@ const ChatMenu = ({userId}:{userId:string}) => {
       console.log(err.response.data)
     })
 
+    let socket: Echo
     const initial = async () => {
-      let socket;
       socket = await EchoConfig()
       if(socket){
-        window.Echo = socket 
-        window.Echo.private(`chat.${userId}`)
+        socket.private(`chat.${userId}`)
         .listen('SendedMessage', (e:any) => {
            const newChat: ChatItem = {
               message: e.message.message,
@@ -40,6 +41,9 @@ const ChatMenu = ({userId}:{userId:string}) => {
       }
     }
     initial()
+    return () => {
+      socket.disconnect()
+    }
   },[])
 
   return (

@@ -24,11 +24,11 @@ const Navbar = async ({className}:{className?:string}) => {
                 < Search className='w-[70%] xl:w-[70%]' />
             </div>
             {/* props */}
-            <div className='flex items-center justify-end gap-4 ss:gap-5'>
-                <div className='ss:flex items-center gap-2 hidden'>
-                    <Link href={`/notifications`} className='w-9 aspect-square flexCenter bg-semiLight dark:bg-d_netral rounded-full'>
-                        < NotificationIcon active width={18} className='cursor-pointer'/>
-                    </Link>
+            <div className='flex items-center justify-end gap-3'>
+                <div className='ss:block hidden'>
+                  <Link href={`/notifications`} className='w-9 aspect-square flexCenter bg-semiLight dark:bg-d_netral rounded-full'>
+                      < NotificationIcon active width={18} className='cursor-pointer'/>
+                  </Link>
                 </div>
                 <div className='hidden sm:block'>
                     < ProfileDropdown

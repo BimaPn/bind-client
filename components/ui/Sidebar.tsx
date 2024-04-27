@@ -8,7 +8,7 @@ const Sidebar = async ({user}:{user:any}) => {
     sm:py-2 border-t sm:border-0 dark:border-d_netral z-[990] sm:z-0 shadow-none sm:shadow sm:rounded-xl'>
       <Navigation
       userId={user.id as string} 
-      username={user.string as string} 
+      username={user.username as string} 
       className="flex-row sm:flex-col items-center sm:items-start justify-evenly sm:justify-center gap-0 sm:gap-1 w-full"
       />
     </aside>

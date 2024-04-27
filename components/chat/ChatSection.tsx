@@ -14,6 +14,7 @@ import { compareDate, formatDate } from "@/helpers/time"
 import { useChatList } from "../providers/ChatListProvider"
 import EchoConfig from "@/app/api/pusher"
 import { useChatCount } from "../providers/ChatCountProvider"
+import Echo from "laravel-echo"
 
 const ChatSection = ({initialMessages=[], authId, userTarget}:{initialMessages?: Message[], authId: string,userTarget: UserChat}) => {
   const [messages, setMessages] = useState<Message[]>(initialMessages)
@@ -29,12 +30,11 @@ const ChatSection = ({initialMessages=[], authId, userTarget}:{initialMessages?:
   };
 
   useEffect(() => {
+    let socket: Echo
     const initial = async () => {
-      let socket;
       socket = await EchoConfig()
       if(socket){
-        window.Echo = socket 
-        window.Echo.private(`chat.${authId}`)
+        socket.private(`chat.${authId}`)
         .listen('SendedMessage', (e:any) => {
           if(e.user.username !== userTarget.username) return;
           const newMessage = {
@@ -48,6 +48,9 @@ const ChatSection = ({initialMessages=[], authId, userTarget}:{initialMessages?:
       }
     }
     initial()
+    return () => {
+      socket.disconnect()
+    }
   },[])
 
   useEffect(() => {
