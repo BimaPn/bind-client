@@ -9,6 +9,7 @@ import NotificationIcon from '../icons/NotificationIcon'
 import { CgMenuRight } from 'react-icons/cg'
 import { IoIosAddCircleOutline } from 'react-icons/io'
 import CreatePostModal from '../posts/CreatePostModal'
+import NotificationDropdown from './NotificationDropdown'
 
 const Navbar = async ({className}:{className?:string}) => {
     const session = await getServerSession(authOptions)
@@ -26,9 +27,7 @@ const Navbar = async ({className}:{className?:string}) => {
             {/* props */}
             <div className='flex items-center justify-end gap-3'>
                 <div className='ss:block hidden'>
-                  <Link href={`/notifications`} className='w-9 aspect-square flexCenter bg-semiLight dark:bg-d_netral rounded-full'>
-                      < NotificationIcon active width={18} className='cursor-pointer'/>
-                  </Link>
+                  <NotificationDropdown />
                 </div>
                 <div className='hidden sm:block'>
                     < ProfileDropdown

@@ -8,8 +8,6 @@ import Echo from "laravel-echo"
 const ChatIcon = ({width=24,active = false,userId,className}:{width?:number,active?:boolean,userId: string,className?:string}) => {
   const { chatCount, initialCount, modifyCount } = useChatCount()
   
-
-
   useEffect(() => {
     ApiClient.get(`/api/messages/unread-count`)
     .then((res) => {
@@ -40,7 +38,9 @@ const ChatIcon = ({width=24,active = false,userId,className}:{width?:number,acti
     <div className="relative">
       <ChatSvg width={width} active={active} className={className} />
         {chatCount > 0 && (
-          <div className={`${chatCount <= 10 ? "w-[15px] text-[10px]":"w-4 text-[9px]"} absolute -top-1 -right-1 flexCenter aspect-square rounded-full bg-red-500 font-bold`}>
+          <div className={`${chatCount <= 10 ? "w-[15px] text-[10px]":"w-4 text-[9px]"} absolute -top-1 -right-1 
+          flexCenter aspect-square rounded-full bg-red-500 font-bold text-white`}
+          >
           {(chatCount <= 10) && chatCount}
           {(chatCount > 10) && `${chatCount}+`}
           </div>

@@ -21,7 +21,7 @@ const Navigation = ({userId, username, className}:{userId:any, username :any,cla
             <GoHomeFill 
             className={`${pathname === '/' ? 'fill-dark dark:fill-light stroke-none' : 'fill-none stroke-dark dark:stroke-light'}`} 
             strokeWidth={1.5} 
-            style={{ fontSize : 29 }} 
+            style={{ fontSize : 27 }} 
             />
             } 
             isActive={pathname === '/'}
@@ -33,7 +33,7 @@ const Navigation = ({userId, username, className}:{userId:any, username :any,cla
             icon={
             <ExploreIcon 
             active={comparePath(pathname, "/explore") ? true : false}
-            width={26} 
+            width={24} 
             />
             } 
             isActive={comparePath(pathname, "/explore")}
@@ -46,7 +46,7 @@ const Navigation = ({userId, username, className}:{userId:any, username :any,cla
             <ChatIcon
             userId={userId}
             active={comparePath(pathname, "/chat") ? true : false}
-            width={24}
+            width={22}
             />        
             } 
             isActive={comparePath(pathname, "/chat")}
@@ -58,7 +58,7 @@ const Navigation = ({userId, username, className}:{userId:any, username :any,cla
             icon={
             <GroupIcon 
             active={comparePath(pathname, "/group") ? true : false}
-            width={22} 
+            width={20} 
             />
             } 
             isActive={comparePath(pathname, "/group")}
@@ -70,7 +70,7 @@ const Navigation = ({userId, username, className}:{userId:any, username :any,cla
             icon={
             <BiSolidBookmark 
             className={`stroke-dark dark:stroke-light 
-            ${comparePath(pathname, "/saved") ? 'fill-dark dark:fill-light' : 'fill-none'} text-[23px]`}
+            ${comparePath(pathname, "/saved") ? 'fill-dark dark:fill-light' : 'fill-none'} text-[21px]`}
             strokeWidth={1.7}  
             />
             } 
@@ -83,7 +83,7 @@ const Navigation = ({userId, username, className}:{userId:any, username :any,cla
             icon={
               <UserIcon
               active={comparePath(pathname, `/user/${username}`)} 
-              width={18.5}
+              width={16.5}
               className={`stroke-dark fill-none`}
               />
             } 
@@ -98,7 +98,7 @@ const NavItem = ({isActive, path, name, icon}:{isActive: boolean, path:string, n
   return (
     <Link
     href={path}
-    className={`sm:w-full flex items-center gap-3 py-2 px-2 
+    className={`sm:w-full flex items-center gap-2 py-2 px-2 
     hover:bg-semiLight dark:hover:bg-d_netral rounded-lg cursor-pointer 
     ${isActive && 'font-medium'}`}
     >
