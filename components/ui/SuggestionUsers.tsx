@@ -13,7 +13,7 @@ const SuggestionUsers = () => {
       </div>
         <ul className="flex flex-col gap-[18px] mt-4 mb-4">
           {users.map((user) => (
-            < UserItem 
+            <UserItem 
             key={user.name}
             name={user.name}
             username={user.username}

@@ -10,7 +10,7 @@ body {
 }
 
 .boxWidth{
-  @apply w-[1440px]
+  @apply w-[1366px] max-w-[1366px]
 }
 .flexCenter{
   @apply flex justify-center items-center

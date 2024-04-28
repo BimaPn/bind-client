@@ -35,10 +35,10 @@ const Post = ({id,user,caption,media,isLiked,isSaved,isAuthor,likedTotal,comment
 
 const Header = ({id,isAuthor,user,created_at}:Pick<PostProps,"user" | "created_at" | 'id' | 'isAuthor'>) => {
     return (
-        <div                className="flexBetween">
+        <div className="flexBetween">
             <div className="flex items-center gap-2">
                 {user.profile_picture && (
-                    <Link href={`/${user.username}`} onClick={(e) => e.stopPropagation()}>
+                    <Link href={`/user/${user.username}`} onClick={(e) => e.stopPropagation()}>
                         < RoundedImage
                         src={user.profile_picture}
                         className="!w-11"

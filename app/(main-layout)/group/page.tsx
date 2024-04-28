@@ -11,8 +11,8 @@ const page = async () => {
     <section>
       <PageHeader title="Groups" showWideScreen={false} />
         <div className="flex flex-col gap-2 ss:gap-4">
-            <GroupJoined username={session?.user.username as string} />
-            <GroupsDiscover/>
+          <GroupJoined username={session?.user.username as string} />
+          <GroupsDiscover/>
         </div>
     </section>
   )

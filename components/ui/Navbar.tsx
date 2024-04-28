@@ -15,7 +15,7 @@ const Navbar = async ({className}:{className?:string}) => {
     const session = await getServerSession(authOptions)
   return (
     <nav className={`bg-light dark:bg-d_semiDark flexCenter fixed top-0 right-0 left-0 shadow z-[995] px-4 sm:px-5 ${className}`}>
-        <div className='boxWidth grid grid-cols-2 md:grid-cols-[1fr_2.5fr_1fr] py-[6px]'>
+        <div className='w-[1366px] grid grid-cols-2 md:grid-cols-[1fr_2.5fr_1fr] py-[6px]'>
             {/* logo */}
             <div className='flex py-3'>
             <ApplicationLogo />
