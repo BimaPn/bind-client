@@ -13,22 +13,27 @@ const GroupCard = ({id,group_picture,name,memberTotal,isJoin,className}:GroupCar
         isJoin
     })
   return (
-    <div className={`flex pb-2 gap-3 ss:gap-4 hover:cursor-pointer ${className}`}>
-        <div className="min-w-[128px] border dark:border-0 ss:w-[152px] h-fit aspect-video rounded-lg overflow-hidden relative">
+    <div className={`flex flex-col border pb-2 gap-1 hover:cursor-pointer overflow-hidden rounded-xl ${className}`}>
+        <div className="w-full h-fit aspect-video relative">
             <Image 
             src={group_picture}
             fill
             objectFit="cover"   
             alt="group picture"/>
         </div>
-        <div className="w-fit">
-            <span className="break-all text-base ss:text-lg font-medium">{name}</span>
+        <div className="w-fit px-2">
+            <span className="block w-full truncate text-[15px] font-medium mb-[2px]">{name}</span>
             <div>
-                <div className="flex items-center gap-1 text-sm text-semiDark dark:text-d_semiLight">
+                <div 
+                className="flex items-center gap-1 text-xs text-semiDark dark:text-d_semiLight"
+                >
                     <span>{group.memberTotal}</span>
                     <span>Members</span>
                 </div>
             </div>
+        </div>
+        <div className="px-2 mt-2 mb-[2px]">
+          <button className="w-full bg-semiLight font-medium rounded-full py-[5px]">Join</button>
         </div>
     </div>
   )

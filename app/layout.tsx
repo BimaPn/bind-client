@@ -9,7 +9,7 @@ import ChatCountProvider from '@/components/providers/ChatCountProvider'
 
 const roboto = Roboto ({ 
   weight: ['400', '500', '700'],
-  subsets: ['latin'], display: "swap" })
+  subsets: ['latin'] })
 
 
 export const metadata: Metadata = {

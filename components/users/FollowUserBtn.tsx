@@ -29,7 +29,7 @@ const FollowUserBtn = ({isFollow,usernameTarget,onFinished,className} :
     onClick={buttonClick}
     disabled={isBtnDisable}
     className={`text-[15px] font-medium px-5 py-2 rounded-full
-    ${isFollow ? 'bg-semiLight dark:bg-d_netral text-dark dark:text-d_light' : 'bg-dark dark:bg-semiLight text-semiLight dark:text-dark'} ${className}`}>
+    ${isFollow ? 'bg-semiLight dark:bg-d_netral text-dark dark:text-d_light' : 'bg-blue-100 dark:bg-semiLight text-blue-600 font-semibold text-sm dark:text-dark'} ${className}`}>
     {isFollow ? 'Unfollow' : ' Follow'} 
     </button>  
   )
