@@ -8,7 +8,7 @@ import GroupJoined from "@/components/groups/GroupJoined"
 const page = async () => {
   const session = await getServerSession(authOptions)
   return (
-    <section className="border">
+    <section>
       <PageHeader title="Groups" showWideScreen={false} />
         <div className="flex flex-col gap-2 ss:gap-4">
             <GroupJoined username={session?.user.username as string} />

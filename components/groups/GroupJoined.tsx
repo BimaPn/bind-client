@@ -25,7 +25,7 @@ const GroupJoined = ({username} : {username : string}) => {
         getPosts()
      },[])
   return (
-    <div className={`flex flex-col gap-2 ss:gap-4 bg-white ss:rounded-xl px-3 ss:px-4 pt-1 ss:pt-3 pb-3 ss:pb-5 ss:shadow`}>
+    <div className={`flex flex-col gap-2 ss:gap-4 dark:bg-d_semiDark bg-white ss:rounded-xl px-3 ss:px-4 pt-1 ss:pt-4 pb-3 ss:pb-5 ss:shadow`}>
 
     <div>
       <div className="flex flex-col items-center text-center mb-5">

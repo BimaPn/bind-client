@@ -4,7 +4,7 @@ import Link from "next/link"
 
 const GroupsDiscover = ({className}:{className ?: string}) => {
   return (
-    <div className={`bg-white flex flex-col gap-2 ss:gap-4 px-3 ss:px-4 pb-3 ss:pb-4 pt-3 ss:rounded-xl ss:shadow ${className}`}>
+    <div className={`dark:bg-d_semiDark bg-white flex flex-col gap-2 ss:gap-4 px-3 ss:px-4 pb-3 ss:pb-4 pt-3 ss:rounded-xl ss:shadow ${className}`}>
       <div className="pb-1 ss:pb-0">
         <h2 className="font-semibold ss:text-lg">Discover Groups</h2>
       </div>
